@@ -15,10 +15,10 @@ const router = createRouter({
     {
       path: '/coaches/:id',
       component: CoachDetail,
-      children: [{ path: '/contact', component: ContactCoach }],
+      children: [{ path: 'contact', component: ContactCoach }],
     },
     { path: '/register', component: CoachRegistration },
-    { path: '/request', component: RequestReceived },
+    { path: '/requests', component: RequestReceived },
     // not found zly link itp
     { path: '/:notFound(.*)', component: NotFound },
   ],
