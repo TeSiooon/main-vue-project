@@ -32,7 +32,8 @@ export default {
     const resData = await res.json();
 
     if (!res.ok) {
-      //jakby error
+      const error = new Error(resData.message || 'Failed to fetch');
+      throw error;
     }
 
     const coaches = [];
