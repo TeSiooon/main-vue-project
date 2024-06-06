@@ -5,7 +5,7 @@
       <input
         type="text"
         id="firstname"
-        v-model="firstName.vals"
+        v-model="firstName.val"
         @blur="clearValidity('firstName')"
       />
       <p v-if="!firstName.isValid">First name must not be empty</p>
@@ -127,11 +127,11 @@ export default {
         return;
       }
       const formData = {
-        first: this.firstName,
-        last: this.lastName,
-        desc: this.description,
-        rate: this.rate,
-        areas: this.areas,
+        first: this.firstName.val,
+        last: this.lastName.val,
+        desc: this.description.val,
+        rate: this.rate.val,
+        areas: this.areas.val,
       };
       console.log(formData);
       this.$emit('save-data', formData);
