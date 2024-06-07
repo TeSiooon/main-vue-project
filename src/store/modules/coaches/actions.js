@@ -25,7 +25,10 @@ export default {
     //Nazwa metody z mutacji
     context.commit('registerCoach', { ...coach, id: userId });
   },
-  async loadCoaches(context) {
+  async loadCoaches(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
     const res = await fetch(
       `https://react-kurs-771f0-default-rtdb.firebaseio.com/coaches.json`
     );
@@ -50,5 +53,6 @@ export default {
       coaches.push(coach);
     }
     context.commit('setCoaches', coaches);
+    context.commit('setFetchTimestamp');
   },
 };
