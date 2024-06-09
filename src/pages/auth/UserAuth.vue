@@ -57,9 +57,6 @@ export default {
     },
   },
   methods: {
-    handleError() {
-      this.error = false;
-    },
     async submitForm() {
       if (
         this.email === '' ||
@@ -75,7 +72,10 @@ export default {
 
       try {
         if (this.mode === 'login') {
-          ///
+          await this.$store.dispatch('login', {
+            email: this.email,
+            password: this.password,
+          });
         } else {
           await this.$store.dispatch('signup', {
             email: this.email,
@@ -94,6 +94,9 @@ export default {
       } else {
         this.mode = 'login';
       }
+    },
+    handleError() {
+      this.error = false;
     },
   },
 };
