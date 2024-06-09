@@ -8,11 +8,11 @@
     </base-dialog>
     <base-card>
       <form @submit.prevent="submitForm">
-        <div class="fomr-control">
+        <div class="form-control">
           <label for="email">Email</label>
           <input type="email" id="email" v-model.trim="email" />
         </div>
-        <div class="fomr-control">
+        <div class="form-control">
           <label for="password">Email</label>
           <input type="password" id="password" v-model.trim="password" />
         </div>
@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { handleError } from 'vue';
-
 export default {
   data() {
     return {
@@ -82,6 +80,8 @@ export default {
             password: this.password,
           });
         }
+        const redicerect = '/' + (this.$route.query.redirect || 'coaches');
+        this.$router.replace(redicerect);
       } catch (error) {
         this.error = error.message;
       }

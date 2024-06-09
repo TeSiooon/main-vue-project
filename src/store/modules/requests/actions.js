@@ -25,8 +25,11 @@ export default {
   },
   async fetchRequests(context) {
     const coachId = context.rootGetters.userId;
+    const token = context.rootGetters.token;
+
     const res = await fetch(
-      `https://react-kurs-771f0-default-rtdb.firebaseio.com/requests/${coachId}.json`,
+      `https://react-kurs-771f0-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=` +
+        token,
       {
         method: 'GET',
       }

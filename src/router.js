@@ -8,6 +8,8 @@ import RequestReceived from './pages/requests/RequestsReceived.vue';
 import NotFound from './pages/NotFound.vue';
 import UserAuth from './pages/auth/UserAuth.vue';
 
+import store from './store/index.js';
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -19,12 +21,31 @@ const router = createRouter({
       props: true,
       children: [{ path: 'contact', component: ContactCoach }],
     },
-    { path: '/register', component: CoachRegistration },
-    { path: '/requests', component: RequestReceived },
+    {
+      path: '/register',
+      component: CoachRegistration,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/requests',
+      component: RequestReceived,
+      meta: { requiresAuth: true },
+    },
     // not found zly link itp
-    { path: '/auth', component: UserAuth },
+    { path: '/auth', component: UserAuth, meta: { requiresUnAuth: true } },
     { path: '/:notFound(.*)', component: NotFound },
   ],
+});
+
+//Guardsy od sprawdzania czy jestesmy zalogowani
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !store.getters.isAuth) {
+    next('/auth');
+  } else if (to.meta.requiresUnAuth && store.getters.isAuth) {
+    next('/coaches');
+  } else {
+    next();
+  }
 });
 
 export default router;
