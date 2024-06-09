@@ -17,8 +17,8 @@ export default {
 
     if (!res.ok) {
       //error
-      const error = new Error(resData.error || 'Failed');
-      console.log(error.message);
+      const error = new Error(resData.error.message || 'Failed');
+      console.log(error);
       throw error;
     }
 
